@@ -47,7 +47,7 @@ const config: z.input<typeof Schema_Config> = {
      * Then, copy the folder id and paste it here
      */
     rootFolder:
-      "d392ff765835e1b5890ab76c92940d553ba73f67a8b1;1e53df46c8faf305a1a24765",
+      "bfea02c3dde22b03632cf823a44c6249d378bb83058662d994544291b2fc2b188818c633bb57472f0b3750dafe7d740e0dd760da1b98591e2300ee8b405acf1c14;c840dadb161f240acaabae47",
 
     /**
      * If your rootfolder inside a shared drive, you NEED to set this to true
@@ -146,7 +146,7 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: false
      */
-    allowDownloadProtectedFile: true,
+    allowDownloadProtectedFile: false,
 
     /**
      * Duration in hours.
@@ -174,7 +174,7 @@ const config: z.input<typeof Schema_Config> = {
      */
     siteName: "essaNJ",
     siteNameTemplate: "%s - %t",
-    siteDescription: "WEW",
+    siteDescription: "A simple file browser for Google Drive",
     siteIcon: "/logo.svg",
     siteAuthor: "EssaNJ",
     favIcon: "/favicon.png",
@@ -204,7 +204,7 @@ const config: z.input<typeof Schema_Config> = {
      * The site password are set from Environment Variable (NEXT_GDRIVE_INDEX_PASSWORD)
      * It's because I don't want to store sensitive data in the code
      */
-    privateIndex: true,
+    privateIndex: false,
 
     /**
      * Maximum breadcrumb length
@@ -282,7 +282,7 @@ const config: z.input<typeof Schema_Config> = {
      */
     footer: [
   {
-    "value": ""
+    "value": "{{ poweredBy EssaNJ }}"
   },
   {
     "value": "Made with ❤️"
