@@ -47,7 +47,7 @@ const config: z.input<typeof Schema_Config> = {
      * Then, copy the folder id and paste it here
      */
     rootFolder:
-      "bfea02c3dde22b03632cf823a44c6249d378bb83058662d994544291b2fc2b188818c633bb57472f0b3750dafe7d740e0dd760da1b98591e2300ee8b405acf1c14;c840dadb161f240acaabae47",
+      "be41dc9c83d2637a04f407782af1470eb884c7ebff9c860ec9280ebb3f9d12ea9a9712a55031985bf84129f772581fe6ce;9048d19dd25f8d8e3350a628",
 
     /**
      * If your rootfolder inside a shared drive, you NEED to set this to true
@@ -63,7 +63,7 @@ const config: z.input<typeof Schema_Config> = {
      * Then you need to encrypt it using `/api/internal/encrypt?q=:shared_drive_id` route
      */
     isTeamDrive: false,
-    sharedDrive: "",
+    sharedDrive: "41b523b9ac719f0a7871b953515857733791d83ba9e3e7abe46db888ea3fe3c6ac3c39adc032b4ecd85af4efaffba7c90461ac81db8a039663fdcc804b34802eea;5874db842ec650d4750d0841",
 
     defaultQuery: ["trashed = false", "(not mimeType contains 'google-apps' or mimeType contains 'folder')"],
     defaultField:
@@ -109,7 +109,7 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: true
      */
-    proxyThumbnail: true,
+    proxyThumbnail: false,
 
     /**
      * Only show preview for files that are smaller than this size
@@ -124,7 +124,7 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: 100MB
      */
-    streamMaxSize: 104857600,
+    streamMaxSize: 0,
 
     /**
      * Maximum file size that can be downloaded via api routes
@@ -137,7 +137,7 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: 4MB
      */
-    maxFileSize: 4194304,
+    maxFileSize: 0,
 
     /**
      * Allow user to download protected file without password.
