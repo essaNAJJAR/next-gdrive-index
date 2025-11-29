@@ -27,7 +27,7 @@ const config: z.input<typeof Schema_Config> = {
    *
    * @default false
    */
-  showGuideButton: true,
+  showGuideButton: false,
 
   /**
    * How long the cache will be stored in the browser
@@ -47,7 +47,7 @@ const config: z.input<typeof Schema_Config> = {
      * Then, copy the folder id and paste it here
      */
     rootFolder:
-      "e0a5fd4f9f7d05d220e517ef3ef4de7acf4277b64a09b916e8ee30703f0d6fd1cdbde87601a667ca61afd1a702e203e6ec;e13a51f76049b2e4e02c5d41",
+      "d392ff765835e1b5890ab76c92940d553ba73f67a8b1;1e53df46c8faf305a1a24765",
 
     /**
      * If your rootfolder inside a shared drive, you NEED to set this to true
@@ -62,8 +62,8 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Then you need to encrypt it using `/api/internal/encrypt?q=:shared_drive_id` route
      */
-    isTeamDrive: true,
-    sharedDrive: "908f663cfd7fa75a494061c4856f03c76ac72430d9212bb34bc0707d1867cfece98664;5f1d6ec93903f2af7b9cfe2f",
+    isTeamDrive: false,
+    sharedDrive: "",
 
     defaultQuery: ["trashed = false", "(not mimeType contains 'google-apps' or mimeType contains 'folder')"],
     defaultField:
@@ -71,6 +71,30 @@ const config: z.input<typeof Schema_Config> = {
     defaultOrder: "folder, name asc, modifiedTime desc",
     itemsPerPage: 50,
     searchResult: 5,
+
+    /**
+     * Special file name that will be used for certain purposes
+     * These files will be ignored when searching for files
+     * and will be hidden from the files list by default
+     */
+    specialFile: {
+      password: ".password",
+      readme: ".readme.md",
+      /**
+       * Banner will be used for opengraph image for folder
+       * By default, all folder will use default og image
+       */
+      banner: ".banner",
+    },
+    /**
+     * Reason why banner has multiple extensions:
+     * - If I use contains query, it will also match the file or folder that contains the word.
+     *   (e.g: File / folder with the name of "Test Password" will be matched)
+     * - If I use = query, it will only match the exact name, hence the multiple extensions
+     *
+     * You can add more extensions if you want
+     */
+    hiddenFiles: [".password", ".readme.md", ".banner", ".banner.jpg", ".banner.png", ".banner.webp"],
 
     /**
      * By default, the app will use the thumbnail URL from Google Drive
@@ -100,53 +124,7 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: 100MB
      */
-    streamMaxSize: 100 * 1024 * 1024,
-
-    /**
-     * Special file name that will be used for certain purposes
-     * These files will be ignored when searching for files
-     * and will be hidden from the files list by default
-     */
-    specialFile: {
-      password: ".password",
-      readme: ".readme.md",
-      /**
-       * Banner will be used for opengraph image for folder
-       * By default, all folder will use default og image
-       */
-      banner: ".banner",
-    },
-    /**
-     * Reason why banner has multiple extensions:
-     * - If I use contains query, it will also match the file or folder that contains the word.
-     *   (e.g: File / folder with the name of "Test Password" will be matched)
-     * - If I use = query, it will only match the exact name, hence the multiple extensions
-     *
-     * You can add more extensions if you want
-     */
-    hiddenFiles: [".password", ".readme.md", ".banner", ".banner.jpg", ".banner.png", ".banner.webp"],
-
-    /**
-     * Allow user to download protected file without password.
-     * If this set to false, download link will have temporary token attached to it
-     * If this set to true, user can download the file without password as long as they have the link
-     *
-     * Default: false
-     */
-    allowDownloadProtectedFile: false,
-    /**
-     * Duration in hours.
-     * In version 2, this will be used for download link expiration.
-     * If you need it under 1 hour, you can use math expression. (e.g: (5 / 60) * 1 = 5 minutes)
-     *
-     * This only affect when the user download the file
-     * For example if you set it for example 30 minutes (0.5)
-     * After 30 minutes, and the user still downloading the file, the download will NOT be interrupted
-     * But if the user refresh the page / trying to download again, the download link will be expired
-     *
-     * Default: 1 hour
-     */
-    temporaryTokenDuration: 1,
+    streamMaxSize: 104857600,
 
     /**
      * Maximum file size that can be downloaded via api routes
@@ -159,7 +137,30 @@ const config: z.input<typeof Schema_Config> = {
      *
      * Default: 4MB
      */
-    maxFileSize: 4 * 1024 * 1024,
+    maxFileSize: 4194304,
+
+    /**
+     * Allow user to download protected file without password.
+     * If this set to false, download link will have temporary token attached to it
+     * If this set to true, user can download the file without password as long as they have the link
+     *
+     * Default: false
+     */
+    allowDownloadProtectedFile: true,
+
+    /**
+     * Duration in hours.
+     * In version 2, this will be used for download link expiration.
+     * If you need it under 1 hour, you can use math expression. (e.g: (5 / 60) * 1 = 5 minutes)
+     *
+     * This only affect when the user download the file
+     * For example if you set it for example 30 minutes (0.5)
+     * After 30 minutes, and the user still downloading the file, the download will NOT be interrupted
+     * But if the user refresh the page / trying to download again, the download link will be expired
+     *
+     * Default: 1 hour
+     */
+    temporaryTokenDuration: 6,
   },
 
   siteConfig: {
@@ -171,11 +172,11 @@ const config: z.input<typeof Schema_Config> = {
      *
      * You can set it to undefined if you don't want to use it
      */
-    siteName: "next-gdrive-index",
+    siteName: "essaNJ",
     siteNameTemplate: "%s - %t",
-    siteDescription: "A simple file browser for Google Drive",
+    siteDescription: "WEW",
     siteIcon: "/logo.svg",
-    siteAuthor: "mbaharip",
+    siteAuthor: "EssaNJ",
     favIcon: "/favicon.png",
     /**
      * Next.js Metadata robots object
@@ -183,7 +184,7 @@ const config: z.input<typeof Schema_Config> = {
      * ref: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#robots
      */
     robots: "noindex, nofollow",
-    twitterHandle: "@mbaharip_",
+    twitterHandle: "@essanj",
 
     /**
      * Show file extension on the file name
@@ -195,6 +196,72 @@ const config: z.input<typeof Schema_Config> = {
      * Default: false
      */
     showFileExtension: true,
+
+    /**
+     * Site wide password protection
+     * If this is set, all files and folders will be protected by this password
+     *
+     * The site password are set from Environment Variable (NEXT_GDRIVE_INDEX_PASSWORD)
+     * It's because I don't want to store sensitive data in the code
+     */
+    privateIndex: true,
+
+    /**
+     * Maximum breadcrumb length
+     * If the breadcrumb is longer than this, it will be shortened
+     */
+    breadcrumbMax: 3,
+
+    /**
+     * Toast notification configuration
+     *
+     * position: Self-explanatory
+     * duration: duration before the toast disappear in milliseconds
+     */
+    toaster: {
+      position: "bottom-right",
+      duration: 3000,
+    },
+
+    /**
+     * Configuration for file preview
+     */
+    previewSettings: {
+      manga: {
+        /**
+         * Load first X MB of the file for preview
+         * or load first X items for preview
+         *
+         * @default
+         * maxSize: 15MB
+         * maxItem: 10 items
+         */
+        maxSize: 15 * 1024 * 1024,
+        maxItem: 10,
+      },
+    },
+
+    /**
+     * Example item:
+     * {
+     *  icon: string, // icon name from lucide icons (https://lucide.dev/icons/)
+     *  name: string,
+     *  href: string,
+     *  external?: boolean
+     * }
+     */
+    navbarItems: [],
+
+    /**
+     * Add support / donation links on the navbar
+     * Example item:
+     * {
+     *  name: string,
+     *  currency: string,
+     *  href: string,
+     * }
+     */
+    supports: [],
 
     /**
      * Footer content
@@ -214,114 +281,18 @@ const config: z.input<typeof Schema_Config> = {
      * - {{ creator }} will be replaced with mbaharip if you want to credit me
      */
     footer: [
-      { value: "{{ poweredBy }}" },
-      { value: "Made with ❤️ by [**{{ author }}**](https://github.com/mbaharip)" },
-    ],
+  {
+    "value": ""
+  },
+  {
+    "value": "Made with ❤️"
+  }
+],
     /**
      * Add page load time on the footer
      * If you don't want to use it, you can set it to false
      */
     experimental_pageLoadTime: false,
-
-    /**
-     * Site wide password protection
-     * If this is set, all files and folders will be protected by this password
-     *
-     * The site password are set from Environment Variable (NEXT_GDRIVE_INDEX_PASSWORD)
-     * It's because I don't want to store sensitive data in the code
-     */
-    privateIndex: false,
-
-    /**
-     * Maximum breadcrumb length
-     * If the breadcrumb is longer than this, it will be shortened
-     */
-    breadcrumbMax: 3,
-
-    /**
-     * Toast notification configuration
-     *
-     * position: Self-explanatory
-     * duration: duration before the toast disappear in milliseconds
-     */
-    toaster: {
-      position: "bottom-right",
-      duration: 5000,
-    },
-
-    /**
-     * Example item:
-     * {
-     *  icon: string, // icon name from lucide icons (https://lucide.dev/icons/)
-     *  name: string,
-     *  href: string,
-     *  external?: boolean
-     * }
-     */
-    navbarItems: [
-      {
-        icon: "FileText",
-        name: "Documentation",
-        href: "https://github.com/mbahArip/next-gdrive-index/wiki",
-        external: true,
-      },
-      {
-        icon: "Github",
-        name: "Github",
-        href: "https://www.github.com/mbaharip",
-        external: true,
-      },
-      {
-        icon: "Mail",
-        name: "Contact",
-        href: "mailto:support@mbaharip.com",
-      },
-    ],
-
-    /**
-     * Add support / donation links on the navbar
-     * Example item:
-     * {
-     *  name: string,
-     *  currency: string,
-     *  href: string,
-     * }
-     */
-    supports: [
-      {
-        name: "Paypal",
-        currency: "USD",
-        href: "https://paypal.me/mbaharip",
-      },
-      {
-        name: "Ko-fi",
-        currency: "USD",
-        href: "https://ko-fi.com/mbaharip",
-      },
-      {
-        name: "Saweria",
-        currency: "IDR",
-        href: "https://saweria.co/mbaharip",
-      },
-    ],
-
-    /**
-     * Configuration for file preview
-     */
-    previewSettings: {
-      manga: {
-        /**
-         * Load first X MB of the file for preview
-         * or load first X items for preview
-         *
-         * @default
-         * maxSize: 15MB
-         * maxItem: 10 items
-         */
-        maxSize: 15 * 1024 * 1024,
-        maxItem: 10,
-      },
-    },
   },
 };
 
